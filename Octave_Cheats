@@ -1,0 +1,107 @@
+Versionen:
+0.1: 5.1.2011 aw
+
+To solve the set of linear equations Ax = b, use the left division operator, ‘\’:
+ x = A \ b
+This is conceptually equivalent to inv (a) * b, but avoids computing the inverse of a matrix directly. 
+
+eps: Return the machine precision.
+speed, tic, toc
+Zeilenkommentar # %
+Blockkommentar #{ #}
+clc: clear screen
+
+http://www.gnu.org/software/octave/doc/interpreter/Test-Functions.html#Test-Functions
+
+Die Shortcuts: http://www.gnu.org/software/octave/doc/interpreter/Cursor-Motion.html#Cursor-Motion
+
+=== Built-in Data Types ===
+
+class:	Klasse anzeigen, ändern, erzeugen
+isa:	Prüfen ob in der Klasse
+cast:	Klasse konvertieren
+typecast:Konvertieren und die darunter liegenden Daten behalten, also z.B. von uint32 auf uint8 usw.
+
+=== Index Expressions ===
+alles, wie man eine Variable indexiert, warum loops schlecht sind usw.
+http://www.gnu.org/software/octave/doc/interpreter/Index-Expressions.html#Index-Expressions
+
+Wird als index ein Vektor verwendet, ist auch das Ergebnis ein Vektor
+---
+
+ismember
+eval, feval
+global, persistent(quasi static) variablen
+deal: Copy the input parameters into the corresponding output parameters
+
+http://www.gnu.org/software/octave/doc/interpreter/Function-Locking.html#Function-Locking
+
+http://www.gnu.org/software/octave/doc/interpreter/Function-Handles-Inline-Functions-and-Anonymous-Functions.html#Function-Handles-Inline-Functions-and-Anonymous-Functions
+
+Anonymous functions are defined using the syntax
+     @(argument-list) expression
+
+An inline function is created from a string containing the function body using the inline function. 
+     f = inline("x^2 + 2");
+
+Debugging:
+dbstop, keyboard
+
+File IO: csvwrite. csvread
+kann auch fscanf, binär schreiben und lesen, eigentlich alles, was auch C kann
+
+Temporary Files ist auch mal interessant
+
+Plotting:
+quiver ist auch interessant
+
+Aus dem chat:
+didi: 		Can I define a function as `function ret = f(x)\n ret = a + b*x;\n endfunction' and 
+			have `a' and `b' be defined outside the function, after the function definition?
+carandraug: yes. check evalin
+didi: 		Nice. Thanks.
+carandraug: function r = f a = evalin('caller', 'a'); b = evalin('caller', 'b'); r = a + b; endfunction
+didi: 		Thank you!
+carandraug: that however implies that you know the name of the variables on the caller workspace. 
+			To know that, you might as well pass their values as arguments. This approach is very prone to bugs
+			I think you can also use anonymous functions which work like closures and won't look like a ugly hack
+didi: 		carandraug: Hum. closures might be a better option indeed.
+carandraug: didi, and if you then want to change the value of those vars on the caller, you can use assignin
+
+***** Matrix Spielereien ********
+octave:1> A=([1 2;3 4;5 6])
+A =
+
+   1   2
+   3   4
+   5   6
+
+octave:2> A(:)
+ans =
+
+   1
+   3
+   5
+   2
+   4
+   6
+
+octave:3> A([1 2],[2])
+ans =
+
+   2
+   4
+
+******************************
+octave:4> a=1, b=2, c=3
+a =  1
+b =  2
+c =  3
+******************************
+octave:> for a=[2 6 1]
+			disp(a)
+		 end;
+ 2
+ 6
+ 1
+
